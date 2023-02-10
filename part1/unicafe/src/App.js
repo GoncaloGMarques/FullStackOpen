@@ -36,14 +36,16 @@ const App = () => {
 const Statistics = (props) => {
 	if (props.hasFeedback) {
 		return (
-			<>
-				<StatisticLine label="good" value={props.goodValue} />
-				<StatisticLine label="neutral" value={props.neutralValue} />
-				<StatisticLine label="bad" value={props.badValue} />
-				<StatisticLine label="all" value={props.allValue} />
-				<StatisticLine label="average" value={props.averageValue} />
-				<StatisticLine label="positive" value={props.positiveValue} />
-			</>
+			<table>
+				<tbody>
+					<StatisticLine label="good" value={props.goodValue} />
+					<StatisticLine label="neutral" value={props.neutralValue} />
+					<StatisticLine label="bad" value={props.badValue} />
+					<StatisticLine label="all" value={props.allValue} />
+					<StatisticLine label="average" value={props.averageValue} />
+					<StatisticLine label="positive" value={props.positiveValue} />
+				</tbody>
+			</table>
 		)
 	} else {
 		return (
@@ -68,7 +70,9 @@ const Button = (props) => {
 
 const StatisticLine = (props) => {
 	return (
-		<div>{props.label} {props.value}</div>
+		<tr>
+			<td>{props.label}</td><td>{props.value}</td>
+		</tr>
 	)
 }
 
