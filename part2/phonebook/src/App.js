@@ -1,5 +1,9 @@
 import { useState } from 'react'
 
+import Filter from './Filter'
+import PersonForm from './PersonForm'
+import Persons from './Persons'
+
 const App = () => {
   const [persons, setPersons] = useState([
     { name: 'Arto Hellas', number: '040-123456', id: 1 },
@@ -38,33 +42,26 @@ const App = () => {
     setSearchStr(event.target.value);
   }
 
+  let controls = [
+    {
+      label: 'name',
+      changeCallback: onChangeName
+    }, {
+      label: 'number',
+      changeCallback: onChangeNumber
+    }
+  ]
+
   const numbersToShow = searchStr != '' ? persons.filter((person) => person.name.toLowerCase().includes(searchStr.toLowerCase())) : persons;
 
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-        filter shown with
-        <input onChange={onChangeSearchParam} />
-      </div>
+      <Filter onChangeCallback={onChangeSearchParam}/>
       <h2>Add a new</h2>
-      <form onSubmit={onCLickAddPerson}>
-        <div>
-          name: <input onChange={onChangeName} />
-        </div>
-        <div>
-          number: <input onChange={onChangeNumber} />
-        </div>
-        <div>
-          <button type="submit" >add</button>
-        </div>
-      </form>
+      <PersonForm controls={controls} submitCallback={onCLickAddPerson} />
       <h2>Numbers</h2>
-      {
-        numbersToShow.map((person) =>
-          <div key={person.id}>{person.name} - {person.number} </div>
-        )
-      }
+      <Persons listOfNumbers={numbersToShow} />
     </div>
   )
 }
